@@ -1,8 +1,8 @@
 require "jwt/rack/version"
 
-module Jwt
+module JWT
   module Rack
-    class Error < StandardError; end
-    # Your code goes here...
+    autoload :Auth,  'jwt/rack/auth'
+    autoload :Token, 'jwt/rack/token'
   end
 end

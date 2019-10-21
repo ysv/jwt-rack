@@ -8,6 +8,8 @@
 
 This gem provides JSON Web Token (JWT) based authentication.
 
+#### TODO: Mention original gem [source](https://github.com/eparreno/rack-jwt)
+
 ## Requirements
 
 - Ruby 2.3.8 or greater
