@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe JWT::Rack::Auth do
@@ -77,7 +79,7 @@ describe JWT::Rack::Auth do
 
       describe 'with a bad arg' do
         it 'raises ArgumentError' do
-          expect { JWT::Rack::Auth.new(inner_app, secret: secret, verify: "badStringArg") }.to raise_error(ArgumentError)
+          expect { JWT::Rack::Auth.new(inner_app, secret: secret, verify: 'badStringArg') }.to raise_error(ArgumentError)
         end
       end
     end

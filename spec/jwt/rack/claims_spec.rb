@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe JWT::Rack::Auth do
@@ -80,11 +82,10 @@ describe JWT::Rack::Auth do
             get('/')
             expect(last_response.status).to eq 401
             body = JSON.parse(last_response.body, symbolize_names: true)
-            expect(body).to eq({:error=>"Invalid JWT token : Invalid Issued At (iat)"})
+            expect(body).to eq(error: 'Invalid JWT token : Invalid Issued At (iat)')
           end
         end
       end
     end # iat
-
   end
 end

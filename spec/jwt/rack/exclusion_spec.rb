@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe JWT::Rack::Auth do
@@ -41,7 +43,7 @@ describe JWT::Rack::Auth do
     end
 
     describe 'passes through matching path with multiple exclusions' do
-      let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret, exclude: %w(/docs /books /static)) }
+      let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret, exclude: %w[/docs /books /static]) }
 
       it 'returns a 200' do
         get('/static/foo/bar')
@@ -50,7 +52,7 @@ describe JWT::Rack::Auth do
     end
 
     describe 'fails when no matching path and no token' do
-      let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret, exclude: %w(/docs /books /static)) }
+      let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret, exclude: %w[/docs /books /static]) }
 
       it 'returns a 200' do
         get('/somewhere')

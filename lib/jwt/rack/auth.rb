@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'jwt'
 
 module JWT
@@ -20,10 +22,10 @@ module JWT
         'ES256',
         'ES384',
         'ES512',
-        ('ED25519' if defined?(RbNaCl)),
+        ('ED25519' if defined?(RbNaCl))
       ].compact.freeze
 
-      DEFAULT_ALGORITHM = 'HS256'.freeze
+      DEFAULT_ALGORITHM = 'HS256'
 
       # The last segment gets dropped for 'none' algorithm since there is no
       # signature so both of these patterns are valid. All character chunks
@@ -36,7 +38,7 @@ module JWT
         [a-zA-Z0-9\-\_]+\.  # 1 or more chars followed by a single period
         [a-zA-Z0-9\-\_]*    # 0 or more chars, no trailing chars
         )$
-      }x
+      }x.freeze
 
       JWT_DECODE_ERRORS = [
         ::JWT::DecodeError,
@@ -49,7 +51,7 @@ module JWT
         ::JWT::InvalidAudError,
         ::JWT::InvalidSubError,
         ::JWT::InvalidJtiError,
-        ::JWT::InvalidPayload,
+        ::JWT::InvalidPayload
       ].freeze
 
       MissingAuthHeader = Class.new(StandardError)
@@ -148,18 +150,12 @@ module JWT
       end
 
       def check_exclude_type!
-        unless @exclude.is_a?(Array)
-          raise ArgumentError, 'exclude argument must be an Array'
-        end
+        raise ArgumentError, 'exclude argument must be an Array' unless @exclude.is_a?(Array)
 
         @exclude.each do |x|
-          unless x.is_a?(String)
-            raise ArgumentError, 'each exclude Array element must be a String'
-          end
+          raise ArgumentError, 'each exclude Array element must be a String' unless x.is_a?(String)
 
-          if x.empty?
-            raise ArgumentError, 'each exclude Array element must not be empty'
-          end
+          raise ArgumentError, 'each exclude Array element must not be empty' if x.empty?
 
           unless x.start_with?('/')
             raise ArgumentError, 'each exclude Array element must start with a /'

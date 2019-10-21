@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'README examples' do
@@ -12,7 +14,7 @@ describe 'README examples' do
   let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret) }
 
   describe 'work as expected with' do
-    let(:time) { Time.new(2014, 02, 06, 16, 12, 0, '-08:00') }
+    let(:time) { Time.new(2014, 0o2, 0o6, 16, 12, 0, '-08:00') }
 
     before do
       allow(Time).to receive_message_chain(:now).and_return(time)
@@ -65,7 +67,7 @@ describe 'README examples' do
       expect(last_response.status).to eq 200
       body = JSON.parse(last_response.body, symbolize_names: true)
       expect(body).to eq(payload)
-      expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS256"})
+      expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS256')
     end
   end
 end

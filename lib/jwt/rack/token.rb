@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module JWT
   module Rack
     # Token encoding and decoding
     class Token
       # abc123.abc123.abc123    (w/ signature)
       # abc123.abc123.          ('none')
-      TOKEN_REGEX = /\A([a-zA-Z0-9\-\_\~\+\\]+\.[a-zA-Z0-9\-\_\~\+\\]+\.[a-zA-Z0-9\-\_\~\+\\]*)\z/
-      DEFAULT_HEADERS = {typ: 'JWT'}
+      TOKEN_REGEX = /\A([a-zA-Z0-9\-\_\~\+\\]+\.[a-zA-Z0-9\-\_\~\+\\]+\.[a-zA-Z0-9\-\_\~\+\\]*)\z/.freeze
+      DEFAULT_HEADERS = { typ: 'JWT' }.freeze
 
       def self.encode(payload, secret, alg = 'HS256')
         raise 'Invalid payload. Must be a Hash.' unless payload.is_a?(Hash)
@@ -25,6 +27,7 @@ module JWT
         raise 'Invalid token format.'     unless valid_token_format?(token)
         raise 'Invalid secret type.'      unless secret_of_valid_type?(secret)
         raise 'Unsupported verify value.' unless verify_of_valid_type?(verify)
+
         options[:algorithm] = 'HS256'     if options[:algorithm].nil?
         raise 'Unsupported algorithm'     unless algorithm_supported?(options[:algorithm])
 

@@ -1,4 +1,6 @@
-require "jwt/rack/version"
+# frozen_string_literal: true
+
+require 'jwt/rack/version'
 
 module JWT
   module Rack

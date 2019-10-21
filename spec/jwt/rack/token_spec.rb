@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe JWT::Rack::Auth do
@@ -20,8 +22,8 @@ describe JWT::Rack::Auth do
         header 'Authorization', "Bearer #{issuer.encode(payload, nil, 'none')}"
         get('/')
         expect(last_response.status).to eq 200
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"none"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'none')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -32,8 +34,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS256"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -46,8 +48,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ" => "JWT", "alg" => "HS256"})
-        expect(last_response.headers['jwt.payload']).to eq({"foo" => "bar"})
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -56,13 +58,13 @@ describe JWT::Rack::Auth do
 
       it 'returns a 200' do
         # generate with HMAC secret of 'secret'
-        header 'Authorization', "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+        header 'Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
         get('/')
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS256"})
-        expect(last_response.headers['jwt.payload']).to eq({"sub"=>"1234567890", "name"=>"John Doe", "admin"=>true})
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(last_response.headers['jwt.payload']).to eq('sub' => '1234567890', 'name' => 'John Doe', 'admin' => true)
       end
     end
 
@@ -75,8 +77,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS384"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS384')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -89,8 +91,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS512"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS512')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -105,8 +107,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"RS256"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'RS256')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -121,8 +123,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"RS384"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'RS384')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -137,8 +139,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"RS512"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'RS512')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -157,8 +159,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"ES256"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'ES256')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -177,8 +179,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"ES384"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'ES384')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -197,8 +199,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"ES512"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'ES512')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
@@ -214,14 +216,13 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"ED25519"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'ED25519')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
   end
 
   describe 'receiving invalid Authorization headers' do
-
     # skip all verification!!!
     describe 'succeeds when verify: false even though secret in token is bad' do
       let(:app) { JWT::Rack::Auth.new(inner_app, secret: secret, verify: false) }
@@ -232,8 +233,8 @@ describe JWT::Rack::Auth do
         expect(last_response.status).to eq 200
         body = JSON.parse(last_response.body, symbolize_names: true)
         expect(body).to eq(payload)
-        expect(last_response.headers['jwt.header']).to eq({"typ"=>"JWT", "alg"=>"HS256"})
-        expect(last_response.headers['jwt.payload']).to eq("foo" => "bar")
+        expect(last_response.headers['jwt.header']).to eq('typ' => 'JWT', 'alg' => 'HS256')
+        expect(last_response.headers['jwt.payload']).to eq('foo' => 'bar')
       end
     end
 
