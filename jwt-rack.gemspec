@@ -39,6 +39,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec',     '>= 3.8.0'
   spec.add_development_dependency 'simplecov', '>= 0.16.0'
 
-  spec.add_runtime_dependency 'jwt', '~> 2.2'
+  spec.add_runtime_dependency 'jwt', '~> 2.7', '>= 2.7.1'
   spec.add_runtime_dependency 'rack'
 end
