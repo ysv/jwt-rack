@@ -22,7 +22,8 @@ module JWT
         'ES256',
         'ES384',
         'ES512',
-        ('ED25519' if defined?(RbNaCl))
+        ('ED25519' if defined?(RbNaCl)),
+        ('EdDSA' if defined?(RbNaCl))
       ].compact.freeze
 
       DEFAULT_ALGORITHM = 'HS256'
